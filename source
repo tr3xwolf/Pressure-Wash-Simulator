@@ -1,0 +1,98 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Anime Warriors Simulator 2 Script", HidePremium = false, IntroText = "Worrcc's Hub", SaveConfig = true, ConfigFolder = "OrionTest"})
+
+OrionLib:MakeNotification({
+	Name = "Welcome To Worrc's hub",
+	Content = "This is a free roblox script for multiple games that I just do as a hobby",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+
+
+-- Tabs
+
+local Main = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Autofarm = Window:MakeTab({
+	Name = "Autofarm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+--Autofarm Buttons
+
+Autofarm:AddButton({
+	Name = "Infinite Money",
+	Callback = function()
+while wait(0.000000000000001) do	    
+local args = {
+    [1] = 14187240600585.938,
+    [2] = 2048
+}
+
+game:GetService("ReplicatedStorage").Remotes.SurfaceCompleted:FireServer(unpack(args))
+end 
+  	end    
+})
+
+
+Autofarm:AddButton({
+	Name = "AutoRebirth (Toggle With M)",
+	Callback = function()
+      		local toggle = false
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.M then
+        toggle = not toggle
+        if toggle then
+            while wait(0.1) do
+                game:GetService("ReplicatedStorage").Remotes.RebirthSignal:FireServer()
+            end
+        end
+    end
+end)
+
+  	end    
+})
+
+
+--Main
+Main:AddButton({
+	Name = "Speedin (Toggle With P)",
+	Callback = function()
+      		-- Configuration
+local toggleKey = Enum.KeyCode.P -- Change this to the key you want to use for toggling
+local originalSpeed -- We'll store the player's original speed in this variable
+
+-- Get the player's character
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Store the player's original speed
+originalSpeed = character.Humanoid.WalkSpeed
+
+-- Function to toggle the movement speed
+local function toggleSpeed()
+    if character.Humanoid.WalkSpeed == originalSpeed then
+        character.Humanoid.WalkSpeed = 150
+    else
+        character.Humanoid.WalkSpeed = originalSpeed
+    end
+end
+
+-- Bind the toggle function to the toggle key
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == toggleKey then
+        toggleSpeed()
+    end
+end)
+
+  	end    
+})
+
+
+OrionLib:Init()
